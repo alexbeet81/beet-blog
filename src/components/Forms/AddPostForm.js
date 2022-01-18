@@ -9,7 +9,13 @@ const AddPostForm = (props) => {
   const imageRef = useRef();
   const contentRef = useRef();
 
+
   const checkIsNotEmpty = (value) => value.trim() !== "";
+  // const checkIsNotEmpty = (value) => console.log(value.length)
+  // I WANT TO BE ABLE TO CHECK IF THIS IS A REAL URL
+  const re = new RegExp('/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi')
+
+  console.log(re.test(imageRef));
 
   const {
     value: titleValue,
@@ -18,7 +24,7 @@ const AddPostForm = (props) => {
     valueChangeHandler: titleChangeHandler,
     inputBlurHandler: titleBlurHandler,
     reset: resetTitle,
-  } = useInput(checkIsNotEmpty);
+  } = useInput((value) => value.trim() !== "" && value.length < 50);
 
   const {
     value: imageValue,
@@ -49,15 +55,23 @@ const AddPostForm = (props) => {
 
     props.onSubmit(newPost);
     resetTitle();
+    resetImage();
+    resetContent();
   };
 
-  const formIsValid = titleIsValid && imageIsValid;
+  const formIsValid = titleIsValid && imageIsValid && contentIsValid;
 
   const titleClasses = titleHasError
     ? `${classes.formControl} ${classes.invalid}`
     : classes.formControl;
 
-  const imageClasses = imageHasError ? `${classes.formControl} ${classes.invalid}` : classes.formControl
+  const imageClasses = imageHasError
+    ? `${classes.formControl} ${classes.invalid}`
+    : classes.formControl;
+
+  const contentClasses = contentHasError
+    ? `${classes.formControl} ${classes.invalid}`
+    : classes.formControl;
 
   return (
     <form onSubmit={formSubmitHandler}>
@@ -89,12 +103,10 @@ const AddPostForm = (props) => {
             onBlur={imageBlurHandler}
           />
           {imageHasError && (
-            <p className={classes.errorText}>
-              must be a valid url
-            </p>
+            <p className={classes.errorText}>must be a valid url</p>
           )}
         </div>
-        <div className={classes.formControl}>
+        <div className={contentClasses}>
           <label htmlFor="content">content</label>
           <textarea
             type="textarea"
@@ -102,7 +114,13 @@ const AddPostForm = (props) => {
             cols="50"
             id="content"
             ref={contentRef}
+            value={contentValue}
+            onChange={contentChangeHandler}
+            onBlur={contentBlurHandler}
           />
+          {contentHasError && (
+            <p className={classes.errorText}>cannot be empty</p>
+          )}
         </div>
         <div className={classes.formActions}>
           <Button disabled={!formIsValid} type="submit">
