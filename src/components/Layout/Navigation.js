@@ -1,3 +1,4 @@
+import React from 'react';
 import { Fragment } from "react/cjs/react.production.min";
 import Button from "../../UI/Button";
 import classes from "./Navigation.module.css";

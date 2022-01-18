@@ -1,3 +1,4 @@
+import React from 'react';
 import classes from './PostItem.module.css';
 
 // const getTimeStamp = (timePosted) => {
@@ -12,7 +13,7 @@ const PostItem = (props) => {
   // getTimeStamp();
   return (
     <div className={classes.postItem}>
-      <img src={props.image} />
+      <img src={props.image} alt={props.postTitle}/>
       <div>
         <h1 className={classes.postTitle}>{props.title}</h1>
         <p className={classes.signiture}>{`created by ${props.user} 10 minutes ago`}</p>

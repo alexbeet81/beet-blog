@@ -1,4 +1,5 @@
 import AddPostForm from "../Forms/AddPostForm";
+import React from "react";
 import classes from './AddPost.module.css';
 
 const AddPost = () => {
@@ -7,8 +8,8 @@ const AddPost = () => {
     console.log(data);
   }
   return (
-    <div>
-      <h1>Add new Post</h1>
+    <div className={classes.container}>
+      <h1 className={classes.title}>Add new Post</h1>
       <AddPostForm onSubmit={addNewPostHandler}/>
     </div>
   )

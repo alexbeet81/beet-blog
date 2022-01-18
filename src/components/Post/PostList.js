@@ -1,3 +1,4 @@
+import React from 'react';
 import PostItem from "./PostItem";
 
 const DUMMY_POSTS = [

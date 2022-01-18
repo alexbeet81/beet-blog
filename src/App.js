@@ -1,4 +1,5 @@
 import { Fragment } from "react/cjs/react.production.min";
+import React from 'react';
 
 import MainHeader from "./components/Layout/MainHeader";
 import Layout from "./components/Layout/Layout";

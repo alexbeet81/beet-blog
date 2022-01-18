@@ -1,4 +1,6 @@
+import React from 'react';
 import { useRef } from "react";
+import validator from "validator";
 
 import classes from "./Form.module.css";
 import Button from "../../UI/Button";
@@ -9,13 +11,18 @@ const AddPostForm = (props) => {
   const imageRef = useRef();
   const contentRef = useRef();
 
-
   const checkIsNotEmpty = (value) => value.trim() !== "";
   // const checkIsNotEmpty = (value) => console.log(value.length)
   // I WANT TO BE ABLE TO CHECK IF THIS IS A REAL URL
-  const re = new RegExp('/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi')
 
-  console.log(re.test(imageRef));
+  // const isValidUrl = (_string) => {
+  //   const re = new RegExp('/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm');
+    
+  //   return re.test(_string);
+  // }
+  // const re = new RegExp(
+  //   "/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}.[a-z]{2,4}\b(/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi"
+  // );
 
   const {
     value: titleValue,
@@ -33,7 +40,7 @@ const AddPostForm = (props) => {
     valueChangeHandler: imageChangeHandler,
     inputBlurHandler: imageBlurHandler,
     reset: resetImage,
-  } = useInput(checkIsNotEmpty);
+  } = useInput((value) => validator.isURL(value));
 
   const {
     value: contentValue,
