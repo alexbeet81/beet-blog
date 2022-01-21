@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PostItem from "./PostItem";
 import useHttp from "../../hooks/use-http";
+import { getAllPosts } from "../../lib/api";
 
 const sortPosts = (posts) => {
   return posts.sort((postA, postB) => {
@@ -10,8 +11,10 @@ const sortPosts = (posts) => {
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
-  const { isLoading, error, sendRequest: fetchPosts } = useHttp();
+  const { isLoading, error, data: loadedPosts, sendRequest: fetchPosts } = useHttp(getAllPosts);
 
+  console.log(loadedPosts);
+  
   useEffect(() => {
     const transformPosts = (postObject) => {
       const loadedPosts = [];
@@ -35,6 +38,7 @@ const PostList = () => {
       },
       transformPosts
     );
+    fetchPosts();
   }, [fetchPosts]);
 
   let allPostList;
