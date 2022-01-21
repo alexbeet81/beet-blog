@@ -1,23 +1,24 @@
-import classes from './PostItem.module.css';
-
-// const getTimeStamp = (timePosted) => {
-//   const timeNow = Date.now()
-//   console.log(timeNow);
-//   const timeSincePost = timeNow - timePosted;
-
-//   return 
-// };
+import React from "react";
+import { Link } from "react-router-dom";
+import classes from "./PostItem.module.css";
+import useTime from "../hooks/use-time";
 
 const PostItem = (props) => {
-  // getTimeStamp();
+  const { timeAgo } = useTime();
+
+  const timePosted = timeAgo(props.date);
   return (
-    <div className={classes.postItem}>
-      <img src={props.image} />
-      <div>
-        <h1 className={classes.postTitle}>{props.title}</h1>
-        <p className={classes.signiture}>{`created by ${props.user} 10 minutes ago`}</p>
+    <Link to={`/${props.id}`} style={{ textDecoration: "none" }}>
+      <div className={classes.postItem}>
+        <img src={props.image} alt={props.postTitle} />
+        <div>
+          <h1 className={classes.postTitle}>{props.title}</h1>
+          <p
+            className={classes.signiture}
+          >{`Posted by ${props.user} ${timePosted}`}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

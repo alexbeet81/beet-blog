@@ -1,22 +1,22 @@
-.postItem {
-  display: flex;
-  text-align: center;
-  height: 96px;
+.post {
 
-  width: 100%;
-  padding: 8px 0 0 0;
 }
 
-.postTitle {
+.post h1 {
   display: flex;
   align-items: center;
-  justify-content: stretch;
-  width: auto;
   padding-left: 8px;
   height: 64px;
   margin: 0;
   color: #37474f;
   align-self: center;
+}
+
+.post img {
+  width: 100%;
+  height: 288px;
+  padding: 0;
+  object-fit: cover;
 }
 
 .signiture {
@@ -33,15 +33,7 @@
   align-self: center;
 }
 
-.postAndSignitureDiv {
-  display: flex;
-  justify-self: stretch;
-  width: auto;
+.content {
+  overflow-y: scroll;
+  padding: 0 8px 0 8px;
 }
-
-.postItem img {
-  width: 152px;
-  padding: 0;
-  object-fit: cover;
-}
-

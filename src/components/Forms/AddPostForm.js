@@ -1,21 +1,20 @@
+import React from 'react';
 import { useRef } from "react";
+import validator from "validator";
+import { useNavigate } from 'react-router-dom';
 
 import classes from "./Form.module.css";
 import Button from "../../UI/Button";
 import useInput from "../hooks/use-input";
 
 const AddPostForm = (props) => {
+  const navigate = useNavigate();
+
   const titleRef = useRef();
   const imageRef = useRef();
   const contentRef = useRef();
 
-
   const checkIsNotEmpty = (value) => value.trim() !== "";
-  // const checkIsNotEmpty = (value) => console.log(value.length)
-  // I WANT TO BE ABLE TO CHECK IF THIS IS A REAL URL
-  const re = new RegExp('/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi')
-
-  console.log(re.test(imageRef));
 
   const {
     value: titleValue,
@@ -33,7 +32,7 @@ const AddPostForm = (props) => {
     valueChangeHandler: imageChangeHandler,
     inputBlurHandler: imageBlurHandler,
     reset: resetImage,
-  } = useInput(checkIsNotEmpty);
+  } = useInput((value) => validator.isURL(value));
 
   const {
     value: contentValue,
@@ -57,6 +56,8 @@ const AddPostForm = (props) => {
     resetTitle();
     resetImage();
     resetContent();
+    
+    navigate('/');
   };
 
   const formIsValid = titleIsValid && imageIsValid && contentIsValid;
@@ -119,12 +120,12 @@ const AddPostForm = (props) => {
             onBlur={contentBlurHandler}
           />
           {contentHasError && (
-            <p className={classes.errorText}>cannot be empty</p>
+            <p className={classes.errorText}>write something interesting!</p>
           )}
         </div>
         <div className={classes.formActions}>
           <Button disabled={!formIsValid} type="submit">
-            Submit
+            {props.loading ? 'sending...' : 'submit' }
           </Button>
         </div>
       </div>
