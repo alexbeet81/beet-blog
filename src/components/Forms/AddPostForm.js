@@ -1,12 +1,15 @@
 import React from 'react';
 import { useRef } from "react";
 import validator from "validator";
+import { useNavigate } from 'react-router-dom';
 
 import classes from "./Form.module.css";
 import Button from "../../UI/Button";
 import useInput from "../hooks/use-input";
 
 const AddPostForm = (props) => {
+  const navigate = useNavigate();
+
   const titleRef = useRef();
   const imageRef = useRef();
   const contentRef = useRef();
@@ -53,6 +56,8 @@ const AddPostForm = (props) => {
     resetTitle();
     resetImage();
     resetContent();
+    
+    navigate('/');
   };
 
   const formIsValid = titleIsValid && imageIsValid && contentIsValid;
@@ -120,7 +125,7 @@ const AddPostForm = (props) => {
         </div>
         <div className={classes.formActions}>
           <Button disabled={!formIsValid} type="submit">
-            Submit
+            {props.loading ? 'sending...' : 'submit' }
           </Button>
         </div>
       </div>
