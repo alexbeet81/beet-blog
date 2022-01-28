@@ -1,5 +1,3 @@
-import { resolvePath } from "react-router-dom";
-
 const FIREBASE_DOMAIN = "https://beet-blog-default-rtdb.asia-southeast1.firebasedatabase.app"
 
 export const getAllPosts = async () => {
@@ -21,6 +19,22 @@ export const getAllPosts = async () => {
   };
 
   return transformedPosts;
+};
+
+export const getSinglePost = async (postId) => {
+  const reponse = await fetch(`${FIREBASE_DOMAIN}/posts/${postId}.json`);
+  const data = await reponse.json();
+
+  if (!reponse.ok) {
+    throw new Error(data.message || 'could not find post')
+  }
+
+  const loadedPost = {
+    id: postId,
+    ...data
+  }
+
+  return loadedPost;
 };
 
 export const addPost = async (postData) => {
