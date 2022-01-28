@@ -53,3 +53,14 @@ export const addPost = async (postData) => {
 
   return null;
 };
+
+export const removePost = async (postId) => {
+  const response = await fetch(`${FIREBASE_DOMAIN}/posts/${postId}.json`, {
+    method: 'DELETE'
+  });
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'could not find post')
+  }
+};
