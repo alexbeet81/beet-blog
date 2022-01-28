@@ -50,6 +50,8 @@ const AddPostForm = (props) => {
       title: titleRef.current.value,
       image: imageRef.current.value,
       content: contentRef.current.value,
+      user: 'Alex',
+      date: Date.now()
     };
 
     props.onSubmit(newPost);
