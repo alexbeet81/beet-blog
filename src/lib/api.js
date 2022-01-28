@@ -13,7 +13,7 @@ export const getAllPosts = async () => {
   for (const key in data) {
     const postObj = {
       id: key,
-      ...key[data],
+      ...data[key],
     }
     transformedPosts.push(postObj);
   };

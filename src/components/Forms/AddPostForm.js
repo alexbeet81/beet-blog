@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import classes from "./Form.module.css";
 import Button from "../../UI/Button";
-import useInput from "../hooks/use-input";
+import useInput from "../../hooks/use-input";
 
 const AddPostForm = (props) => {
   const navigate = useNavigate();

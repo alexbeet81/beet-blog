@@ -1,35 +1,60 @@
-import { useCallback, useState } from "react";
+import { useReducer, useCallback } from "react";
 
-const useHttp = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+const httpReducer = (state, action) => {
+  if (action.type === "SEND") {
+    return {
+      data: null,
+      error: null,
+      status: "pending",
+    };
+  }
 
-  const sendRequest = useCallback(async (requestConfig, applyData) => {
-    setIsLoading(true);
-    setError(null);
+  if (action.type === "SUCCESS") {
+    return {
+      data: action.responseData,
+      error: null,
+      status: "completed",
+    };
+  }
 
-    try {
-      const response = await fetch(requestConfig.url, {
-        method: requestConfig.method ? requestConfig.method : "GET",
-        headers: requestConfig.headers ? requestConfig.headers : {},
-        body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
-      });
+  if (action.type === "ERROR") {
+    return {
+      data: null,
+      error: action.errorMessage,
+      status: "completed",
+    };
+  }
 
-      if (!response.ok) {
-        throw new Error("Request failed!");
+  return state;
+};
+
+const useHttp = (requestFunction, startWithPending = false) => {
+  const [httpState, dispatch] = useReducer(httpReducer, {
+    status: startWithPending ? "pending" : null,
+    data: null,
+    error: null,
+  });
+
+  const sendRequest = useCallback(
+    async (requestData) => {
+      dispatch({ type: "SEND" });
+      try {
+        const responseData = await requestFunction(requestData);
+        dispatch({ type: "SUCCESS", responseData });
+      } catch (error) {
+        dispatch({
+          type: "ERROR",
+          errorMessage: error.message || "Something went wrong",
+        });
       }
+    },
+    [requestFunction]
+  );
 
-      const data = await response.json();
-
-      applyData(data);
-    } catch (err) {
-      setError(err.message || "Something went wrong");
-    }
-
-    setIsLoading(false);
-  }, []);
-
-  return { isLoading, error, sendRequest }
+  return {
+    sendRequest,
+    ...httpState,
+  };
 };
 
 export default useHttp;

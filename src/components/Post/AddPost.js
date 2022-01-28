@@ -1,7 +1,7 @@
 import AddPostForm from "../Forms/AddPostForm";
 import React from "react";
 import classes from "./AddPost.module.css";
-import useHttp from "../hooks/use-http";
+import useHttp from "../../hooks/use-http"
 
 const AddPost = (props) => {
   const { isLoading, error, sendRequest: sendNewPostRequest } = useHttp();

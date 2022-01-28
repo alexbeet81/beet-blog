@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+
 import PostItem from "./PostItem";
+import LoadingSpinner from "../../UI/LoadingSpinner";
 import useHttp from "../../hooks/use-http";
 import { getAllPosts } from "../../lib/api";
 
@@ -10,59 +12,49 @@ const sortPosts = (posts) => {
 };
 
 const PostList = () => {
-  const [posts, setPosts] = useState([]);
-  const { isLoading, error, data: loadedPosts, sendRequest: fetchPosts } = useHttp(getAllPosts);
+  const {
+    sendRequest,
+    status,
+    data: loadedPosts,
+    error,
+  } = useHttp(getAllPosts, false);
 
-  console.log(loadedPosts);
-  
   useEffect(() => {
-    const transformPosts = (postObject) => {
-      const loadedPosts = [];
+    sendRequest();
+  }, [sendRequest]);
 
-      for (const postKey in postObject) {
-        loadedPosts.push({
-          id: postKey,
-          title: postObject[postKey].title,
-          image: postObject[postKey].image,
-          user: postObject[postKey].user,
-          date: postObject[postKey].date,
-        });
-      }
-
-      setPosts(loadedPosts);
-    };
-
-    fetchPosts(
-      {
-        url: "https://beet-blog-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json",
-      },
-      transformPosts
+  if (status === "pending") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
     );
-    fetchPosts();
-  }, [fetchPosts]);
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (status === "completed" && (!loadedPosts || loadedPosts.length === 0)) {
+    return <div>No posts found</div>;
+  }
 
   let allPostList;
 
-  if (isLoading) {
-    allPostList = <p>Loading...</p>;
+  if (status === "completed") {
+    const sortedPosts = sortPosts(loadedPosts);
+
+    allPostList = sortedPosts.map((post) => (
+      <PostItem
+        key={post.id}
+        id={post.id}
+        title={post.title}
+        image={post.image}
+        user={post.user}
+        date={post.date}
+      />
+    ));
   }
-
-  if (posts.length === 0) {
-    allPostList = <p>No posts found. Be the first to add one</p>;
-  }
-
-  const sortedPosts = sortPosts(posts);
-
-  allPostList = sortedPosts.map((post) => (
-    <PostItem
-      key={post.id}
-      id={post.id}
-      title={post.title}
-      image={post.image}
-      user={post.user}
-      date={post.date}
-    />
-  ));
 
   return <div>{allPostList}</div>;
 };
