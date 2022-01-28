@@ -2,14 +2,23 @@ import AddPostForm from "../Forms/AddPostForm";
 import React from "react";
 import classes from "./AddPost.module.css";
 import useHttp from "../../hooks/use-http";
+import { useNavigate } from "react-router-dom";
 import { addPost } from "../../lib/api";
+import { useEffect } from "react/cjs/react.development";
 
 const AddPost = (props) => {
+  const navigate = useNavigate();
   const { sendRequest, status } = useHttp(addPost);
   
   const addNewPostHandler = (data) => {
     sendRequest(data);
   };
+
+  useEffect(() => {
+    if (status === 'completed') {
+      navigate('/')
+    }
+  }, [status])
 
   return (
     <div className={classes.container}>

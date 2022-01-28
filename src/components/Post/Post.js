@@ -11,7 +11,6 @@ import Modal from "../../UI/Modal";
 
 const Post = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [deletePost, setDeletPost] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -21,8 +20,11 @@ const Post = () => {
     error,
   } = useHttp(getSinglePost, true);
 
-  const { sendRequest: removePostRequest, error: removeError } =
-    useHttp(removePost);
+  const {
+    status: removePostStatus,
+    sendRequest: removePostRequest,
+    error: removeError,
+  } = useHttp(removePost);
 
   const { timeAgo } = useTime();
 
@@ -33,17 +35,22 @@ const Post = () => {
     sendRequest(postId);
   }, [sendRequest, postId]);
 
+  useEffect(() => {
+    if (removePostStatus === "completed") {
+      navigate("/");
+    }
+  }, [removePostStatus]);
+
   const openCancelModalHandler = () => {
-    setModalOpen(true)
-  }
+    setModalOpen(true);
+  };
 
   const closeCancelModalHandler = () => {
-    setModalOpen(false)
+    setModalOpen(false);
   };
 
   const removePostHandler = () => {
     removePostRequest(postId);
-    navigate("/");
   };
 
   if (status === "pending") {
@@ -73,14 +80,22 @@ const Post = () => {
       <Button onClick={openCancelModalHandler}>Remove Post</Button>
       {modalOpen && (
         <Modal onClose={closeCancelModalHandler}>
-          <h1>Think about it</h1>
-          <p>Are you sure you want to remove this post?</p>
-          <div className={classes.modalButtons}>
-            <Button onClick={closeCancelModalHandler} cancel={true}>
-              cancel
-            </Button>
-            <Button onClick={removePostHandler}>Remove</Button>
-          </div>
+          {removePostStatus === "pending" ? (
+            <div className="centered">
+              <LoadingSpinner />
+            </div>
+          ) : (
+            <div>
+              <h1>Think about it</h1>
+              <p>Are you sure you want to remove this post?</p>
+              <div className={classes.modalButtons}>
+                <Button onClick={closeCancelModalHandler} cancel={true}>
+                  cancel
+                </Button>
+                <Button onClick={removePostHandler}>Remove</Button>
+              </div>
+            </div>
+          )}
         </Modal>
       )}
     </div>
