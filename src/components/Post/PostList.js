@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import PostItem from "./PostItem";
 import LoadingSpinner from "../../UI/LoadingSpinner";
@@ -32,7 +32,7 @@ const PostList = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="centered">{error}</div>;
   }
 
   if (status === "completed" && (!loadedPosts || loadedPosts.length === 0)) {
@@ -41,7 +41,7 @@ const PostList = () => {
 
   let allPostList;
 
-  if (status === "completed") {
+  if (status === "completed" && loadedPosts.length > 0) {
     const sortedPosts = sortPosts(loadedPosts);
 
     allPostList = sortedPosts.map((post) => (
