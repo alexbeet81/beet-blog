@@ -7,7 +7,6 @@ import Layout from "./components/Layout/Layout";
 import PostList from "./components/Post/PostList";
 import AddPost from "./components/Post/AddPost";
 import Post from "./components/Post/Post";
-import LoadingSpinner from "./UI/LoadingSpinner";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -28,9 +27,6 @@ function App() {
           />
           <Route path="/:postId" element={<Post />} />
         </Routes>
-        <div className="centered">
-          <LoadingSpinner />
-        </div>
       </Layout>
     </Fragment>
   );
