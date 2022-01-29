@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import classes from "./Post.module.css";
@@ -8,8 +8,11 @@ import LoadingSpinner from "../../UI/LoadingSpinner";
 import useTime from "../../hooks/use-time";
 import Button from "../../UI/Button";
 import Modal from "../../UI/Modal";
+import AuthContext from "../../store/auth-context";
 
 const Post = () => {
+  const authCtx = useContext(AuthContext);
+  
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -69,6 +72,8 @@ const Post = () => {
     return <div>No post found</div>;
   }
 
+  const showRemoveButton = loadedPost.userId === authCtx.localId;
+
   return (
     <div className={classes.post}>
       <h1>{loadedPost.title}</h1>
@@ -77,7 +82,7 @@ const Post = () => {
       } - ${timeAgo(loadedPost.date)}`}</p>
       <img src={loadedPost.image} alt={loadedPost.title} />
       <p className={classes.content}>{loadedPost.content}</p>
-      <Button onClick={openCancelModalHandler}>Remove Post</Button>
+      {showRemoveButton && <Button onClick={openCancelModalHandler}>Remove Post</Button>}
       {modalOpen && (
         <Modal onClose={closeCancelModalHandler}>
           {removePostStatus === "pending" ? (
