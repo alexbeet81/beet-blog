@@ -1,0 +1,30 @@
+:root {
+  --white: #fff;
+}
+
+.spinner {
+  display: inline-block;
+  width: auto;
+  height: 18px;
+}
+
+.spinner::after {
+  content: " ";
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0px 16px;
+  border-radius: 50%;
+  border: 2px solid var(--pastel-red);
+  border-color: var(--white) transparent var(--white) transparent;
+  animation: spinner 1.2s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

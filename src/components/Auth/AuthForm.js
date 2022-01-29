@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
-import validator from 'validator';
+import validator from "validator";
 
 import Modal from "../../UI/Modal";
 import classes from "./AuthForm.module.css";
 import Button from "../../UI/Button";
 import useInput from "../../hooks/use-input";
+import useHttp from "../../hooks/use-http";
+import { signUp, login } from "../../lib/api";
+import SmallLoadingSpinner from "../../UI/SmallLoadingSpinner";
 
 const AuthForm = (props) => {
   const usernameRef = useRef();
@@ -12,6 +15,37 @@ const AuthForm = (props) => {
   const passwordRef = useRef();
 
   const [isLogin, setIsLogin] = useState(true);
+
+  const {
+    status: signUpStatus,
+    error: signUpError,
+    sendRequest: sendSignUpResquest,
+  } = useHttp(signUp);
+
+  const {
+    status: loginStatus,
+    error: loginError,
+    sendRequest: sendloginResquest,
+  } = useHttp(login);
+
+  let userLogInData;
+
+  const submitHander = (event) => {
+    event.preventDefault();
+
+    const userDetails = {
+      displayName: usernameValue,
+      email: emailValue,
+      password: passwordValue,
+      returnSecureToken: true
+    }
+
+    if (isLogin) {
+      sendloginResquest(userDetails);
+    } else {
+      sendSignUpResquest(userDetails);
+    }
+  };
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -49,7 +83,7 @@ const AuthForm = (props) => {
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHander,
     reset: resetPassword,
-  } = useInput(checkIsNotEmpty);
+  } = useInput((value) => value.length >= 6);
 
   let formIsValid;
 
@@ -59,7 +93,6 @@ const AuthForm = (props) => {
     formIsValid = usernameIsValid && emailIsValid && passwordIsValid;
   }
 
-  
   const usernameClasses = usernameHasError
     ? `${classes.formControl} ${classes.invalid}`
     : classes.formControl;
@@ -72,10 +105,15 @@ const AuthForm = (props) => {
     ? `${classes.formControl} ${classes.invalid}`
     : classes.formControl;
 
+  const buttonSignUpText =
+    signUpStatus === "pending" ? <SmallLoadingSpinner /> : "sign up";
+  
+  const buttonLoginText = loginStatus === "pending" ? <SmallLoadingSpinner /> : "login";
+
   return (
     <Modal onClose={props.onClose}>
       <section className={classes.auth}>
-        <form>
+        <form onSubmit={submitHander}>
           <h1>{isLogin ? "Login" : "Sign up"}</h1>
           <div className={classes.controlGroup}>
             {!isLogin && (
@@ -119,7 +157,9 @@ const AuthForm = (props) => {
                 onBlur={passwordBlurHander}
               />
               {passwordHasError && (
-                <p className={classes.errorText}>please enter valid password</p>
+                <p className={classes.errorText}>
+                  password should be at least 6 characters
+                </p>
               )}
             </div>
           </div>
@@ -128,7 +168,7 @@ const AuthForm = (props) => {
               cancel
             </Button>
             <Button disabled={!formIsValid} type="submit">
-              {isLogin ? "sign up" : "login"}
+              {isLogin ? buttonLoginText : buttonSignUpText}
             </Button>
           </div>
           <button
