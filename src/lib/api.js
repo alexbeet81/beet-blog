@@ -103,8 +103,6 @@ export const login = async (userData) => {
 
   const data = await response.json();
 
-  console.log(data, 'api line 102');
-
   if (!response.ok) {
     throw new Error(data.message || "Could not login");
   }
