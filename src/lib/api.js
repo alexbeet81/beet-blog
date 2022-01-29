@@ -64,6 +64,8 @@ export const removePost = async (postId) => {
   if (!response.ok) {
     throw new Error(data.message || "could not find post");
   }
+
+  return null;
 };
 
 export const signUp = async (userData) => {

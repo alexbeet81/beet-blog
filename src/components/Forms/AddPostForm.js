@@ -1,12 +1,14 @@
-import React from 'react';
-import { useRef } from "react";
+import React, { useRef, useContext } from 'react';
 import validator from "validator";
 
 import classes from "./Form.module.css";
 import Button from "../../UI/Button";
 import useInput from "../../hooks/use-input";
+import AuthContext from '../../store/auth-context';
 
 const AddPostForm = (props) => {
+  const authCtx = useContext(AuthContext);
+
   const titleRef = useRef();
   const imageRef = useRef();
   const contentRef = useRef();
@@ -47,7 +49,7 @@ const AddPostForm = (props) => {
       title: titleRef.current.value,
       image: imageRef.current.value,
       content: contentRef.current.value,
-      user: 'Alex',
+      user: authCtx.displayName,
       date: Date.now()
     };
 

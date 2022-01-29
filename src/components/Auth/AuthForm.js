@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import validator from "validator";
 
 import Modal from "../../UI/Modal";
@@ -8,8 +8,11 @@ import useInput from "../../hooks/use-input";
 import useHttp from "../../hooks/use-http";
 import { signUp, login } from "../../lib/api";
 import SmallLoadingSpinner from "../../UI/SmallLoadingSpinner";
+import AuthContext from "../../store/auth-context";
 
 const AuthForm = (props) => {
+  const authCtx = useContext(AuthContext);
+
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -25,20 +28,19 @@ const AuthForm = (props) => {
   const {
     status: loginStatus,
     error: loginError,
+    data: userLoginData,
     sendRequest: sendloginResquest,
   } = useHttp(login);
 
-  let userLogInData;
-
-  const submitHander = (event) => {
+  const submitHander = async (event) => {
     event.preventDefault();
 
     const userDetails = {
       displayName: usernameValue,
       email: emailValue,
       password: passwordValue,
-      returnSecureToken: true
-    }
+      returnSecureToken: true,
+    };
 
     if (isLogin) {
       sendloginResquest(userDetails);
@@ -46,6 +48,15 @@ const AuthForm = (props) => {
       sendSignUpResquest(userDetails);
     }
   };
+
+  useEffect(() => {
+    if (loginStatus === "completed") {
+      authCtx.login({
+        token: userLoginData.idToken,
+        displayName: userLoginData.displayName,
+      });
+    }
+  }, [loginStatus]);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -107,8 +118,9 @@ const AuthForm = (props) => {
 
   const buttonSignUpText =
     signUpStatus === "pending" ? <SmallLoadingSpinner /> : "sign up";
-  
-  const buttonLoginText = loginStatus === "pending" ? <SmallLoadingSpinner /> : "login";
+
+  const buttonLoginText =
+    loginStatus === "pending" ? <SmallLoadingSpinner /> : "login";
 
   return (
     <Modal onClose={props.onClose}>
