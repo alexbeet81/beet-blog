@@ -54,6 +54,7 @@ const AuthForm = (props) => {
       authCtx.login({
         token: userLoginData.idToken,
         displayName: userLoginData.displayName,
+        localId: userLoginData.localId
       });
     }
   }, [loginStatus]);

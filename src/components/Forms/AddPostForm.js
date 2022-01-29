@@ -50,6 +50,7 @@ const AddPostForm = (props) => {
       image: imageRef.current.value,
       content: contentRef.current.value,
       user: authCtx.displayName,
+      userId: authCtx.localId,
       date: Date.now()
     };
 
