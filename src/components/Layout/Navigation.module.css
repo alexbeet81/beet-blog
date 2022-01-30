@@ -1,6 +1,10 @@
 .navigation {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 14.5rem;
+}
+
+.navigation button {
+  margin-left: 1rem;
 }
