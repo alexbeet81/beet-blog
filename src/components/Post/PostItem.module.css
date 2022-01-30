@@ -2,7 +2,6 @@
   display: flex;
   text-align: center;
   height: 96px;
-
   width: 100%;
   padding: 8px 0 0 0;
 }
@@ -23,21 +22,20 @@
   display: flex;
   flex-grow: 100;
   align-items: center;
-  justify-content: stretch;
+  /* justify-content: stretch; */
   padding-left: 8px;
-  background-color: #ffa6a7;
-  color: #fff;
+  background: linear-gradient(90deg, rgba(255,166,167,1) 50%, rgba(0,212,255,0) 100%);;
+  color: #49545a;
   width: auto;
   margin: 0;
   height: 32px;
   align-self: center;
 }
 
-.postAndSignitureDiv {
-  display: flex;
+/* .postAndSignitureDiv {
   justify-self: stretch;
   width: auto;
-}
+} */
 
 .postItem img {
   width: 152px;
