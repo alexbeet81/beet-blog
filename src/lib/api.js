@@ -69,9 +69,8 @@ export const removePost = async (postId) => {
 };
 
 export const signUp = async (userData) => {
-  const apiKey = process.env.REACT_APP_FIREBASE_KEY;
   const response = await fetch(
-    `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`,
+    `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCPPP_IKRSQnWYo15i5r-6-ZF6KTUgPewU`,
     {
       method: "POST",
       body: JSON.stringify(userData),
@@ -89,9 +88,8 @@ export const signUp = async (userData) => {
 };
 
 export const login = async (userData) => {
-  const apiKey = process.env.REACT_APP_FIREBASE_KEY;
   const response = await fetch(
-    `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`,
+    `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCPPP_IKRSQnWYo15i5r-6-ZF6KTUgPewU`,
     {
       method: "POST",
       body: JSON.stringify(userData),
