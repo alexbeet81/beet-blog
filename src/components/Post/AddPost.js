@@ -9,16 +9,16 @@ import { useEffect } from "react/cjs/react.development";
 const AddPost = (props) => {
   const navigate = useNavigate();
   const { sendRequest, status } = useHttp(addPost);
-  
+
   const addNewPostHandler = (data) => {
     sendRequest(data);
   };
 
   useEffect(() => {
-    if (status === 'completed') {
-      navigate('/')
+    if (status === "completed") {
+      navigate("/");
     }
-  }, [status])
+  }, [status]);
 
   return (
     <div className={classes.container}>
