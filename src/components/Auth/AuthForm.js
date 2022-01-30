@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import validator from "validator";
+import { useNavigate } from "react-router-dom";
 
 import Modal from "../../UI/Modal";
 import classes from "./AuthForm.module.css";
@@ -11,6 +12,8 @@ import SmallLoadingSpinner from "../../UI/SmallLoadingSpinner";
 import AuthContext from "../../store/auth-context";
 
 const AuthForm = (props) => {
+  const nagivate = useNavigate();
+
   const authCtx = useContext(AuthContext);
 
   const usernameRef = useRef();
@@ -22,6 +25,7 @@ const AuthForm = (props) => {
   const {
     status: signUpStatus,
     error: signUpError,
+    data: userSignUpData,
     sendRequest: sendSignUpResquest,
   } = useHttp(signUp);
 
@@ -56,8 +60,24 @@ const AuthForm = (props) => {
         displayName: userLoginData.displayName,
         localId: userLoginData.localId
       });
+
+      props.onClose();
+      nagivate('/');
     }
-  }, [loginStatus]);
+
+    if (signUpStatus === "completed") {
+      authCtx.login({
+        token: userSignUpData.idToken,
+        displayName: userSignUpData.displayName,
+        localId: userSignUpData.localId
+      });
+
+      props.onClose();
+      nagivate('/');
+    }
+
+    
+  }, [loginStatus, signUpStatus]);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);

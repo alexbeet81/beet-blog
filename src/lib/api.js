@@ -85,6 +85,8 @@ export const signUp = async (userData) => {
   if (!response.ok) {
     throw new Error(data.message || "could not sign up");
   }
+
+  return data;
 };
 
 export const login = async (userData) => {
