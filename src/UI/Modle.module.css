@@ -12,7 +12,7 @@
   position: fixed;
   top: 20vh;
   left: 30%;
-  width: 90%;
+  width: auto;
   background-color: #fff;
   padding: 1rem;
   border-radius: 14px;
@@ -23,7 +23,7 @@
 
 @media (min-width: 764px) {
   .modal {
-    width: 40rem;
+    width: auto;
     left: cal(50% - 20rem)
   }
 }
