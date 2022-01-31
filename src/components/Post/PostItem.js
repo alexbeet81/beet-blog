@@ -8,7 +8,7 @@ const PostItem = (props) => {
 
   const timePosted = timeAgo(props.date);
   return (
-    <Link to={`/${props.id}`} style={{ textDecoration: "none" }}>
+    <Link to={`/post/${props.id}`} style={{ textDecoration: "none" }}>
       <div className={classes.postItem}>
         <img src={props.image} alt={props.postTitle} />
         <div className={classes.postAndSignitureDiv}>
