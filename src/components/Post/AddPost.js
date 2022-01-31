@@ -23,7 +23,7 @@ const AddPost = (props) => {
   }, [status, navigate]);
 
   return (
-    <Modal>
+    <Modal onClose={props.onClose}>
       <div className={classes.container}>
         <h1 className={classes.title}>Add New Post</h1>
         <AddPostForm
