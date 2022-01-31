@@ -10,7 +10,8 @@ const MainHeader = (props) => {
   const authCtx = useContext(AuthContext);
 
   let titleName = "Beet";
-  if (authCtx.displayName !== "") {
+  console.log(authCtx.displayName, 'MainHeader line 13');
+  if (authCtx.displayName !== null && authCtx.displayName !== "") {
     titleName = authCtx.displayName;
   }
 
