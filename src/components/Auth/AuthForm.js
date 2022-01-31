@@ -55,28 +55,38 @@ const AuthForm = (props) => {
 
   useEffect(() => {
     if (loginStatus === "completed") {
-      authCtx.login({
-        token: userLoginData.idToken,
-        displayName: userLoginData.displayName,
-        localId: userLoginData.localId
-      });
+      const expirationTime = new Date(
+        new Date().getTime() + +userLoginData.expiresIn * 1000
+      );
+      authCtx.login(
+        {
+          token: userLoginData.idToken,
+          displayName: userLoginData.displayName,
+          localId: userLoginData.localId,
+        },
+        expirationTime.toISOString()
+      );
 
       props.onClose();
-      nagivate('/');
+      nagivate("/");
     }
 
     if (signUpStatus === "completed") {
-      authCtx.login({
-        token: userSignUpData.idToken,
-        displayName: userSignUpData.displayName,
-        localId: userSignUpData.localId
-      });
+      const expirationTime = new Date(
+        new Date().getTime() + +userSignUpData.expiresIn * 1000
+      );
+      authCtx.login(
+        {
+          token: userSignUpData.idToken,
+          displayName: userSignUpData.displayName,
+          localId: userSignUpData.localId,
+        },
+        expirationTime.toISOString()
+      );
 
       props.onClose();
-      nagivate('/');
+      nagivate("/");
     }
-
-    
   }, [loginStatus, signUpStatus]);
 
   const switchAuthModeHandler = () => {
