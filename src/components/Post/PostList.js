@@ -4,6 +4,7 @@ import PostItem from "./PostItem";
 import LoadingSpinner from "../../UI/LoadingSpinner";
 import useHttp from "../../hooks/use-http";
 import { getAllPosts } from "../../lib/api";
+import classes from './PostList.module.css';
 
 const sortPosts = (posts) => {
   return posts.sort((postA, postB) => {
@@ -36,7 +37,7 @@ const PostList = () => {
   }
 
   if (status === "completed" && (!loadedPosts || loadedPosts.length === 0)) {
-    return <div>No posts found</div>;
+    return <div className={classes.noPosts}>No posts found</div>;
   }
 
   let allPostList;

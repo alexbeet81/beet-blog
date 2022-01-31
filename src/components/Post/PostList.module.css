@@ -1,0 +1,9 @@
+.noPosts {
+  margin: 3rem auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #fa696b;
+}
