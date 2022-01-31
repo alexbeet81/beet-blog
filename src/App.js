@@ -10,8 +10,8 @@ import Post from "./components/Post/Post";
 function App() {
   return (
     <Fragment>
-      <MainHeader />
       <Layout>
+        <MainHeader />
         <Routes>
           <Route path="/" element={<PostList />} />
           <Route path="/:postId" element={<Post />} />
