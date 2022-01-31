@@ -7,7 +7,7 @@ import AuthForm from '../Auth/AuthForm';
 import classes from "./Navigation.module.css";
 import AddPost from '../Post/AddPost';
 
-const Navigation = () => {
+const Navigation = (props) => {
   const authCtx = useContext(AuthContext)
 
   const isLoggedIn = authCtx.isLoggedIn;

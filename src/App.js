@@ -20,11 +20,11 @@ function App() {
       <MainHeader />
       <Layout>
         <Routes>
-          <Route path="/" element={<PostList posts={posts} />} />
-          <Route
+          <Route path="/" element={<PostList />} />
+          {/* <Route
             path="/new-post"
             element={<AddPost onAddPost={postAddHandler} />}
-          />
+          /> */}
           <Route path="/:postId" element={<Post />} />
         </Routes>
       </Layout>
