@@ -55,16 +55,17 @@ const AuthForm = (props) => {
 
   useEffect(() => {
     if (loginStatus === "completed") {
-
-      console.log(userLoginData.expiresIn, 'AuthForm line 59')
       const expirationTime = new Date(
         new Date().getTime() + +userLoginData.expiresIn * 1000
       );
-      authCtx.login({
-        token: userLoginData.idToken,
-        displayName: userLoginData.displayName,
-        localId: userLoginData.localId,
-      }, expirationTime.toISOString());
+      authCtx.login(
+        {
+          token: userLoginData.idToken,
+          displayName: userLoginData.displayName,
+          localId: userLoginData.localId,
+        },
+        expirationTime.toISOString()
+      );
 
       props.onClose();
       nagivate("/");

@@ -12,14 +12,11 @@ const AuthContext = React.createContext({
 });
 
 const calculateRemainingTime = (expirationTime) => {
-  console.log(expirationTime, 'expirationTime line 15');
+  console.log(expirationTime, "expirationTime line 15");
   const currentTime = new Date().getTime();
   const adjExpirationTime = new Date(expirationTime).getTime();
-  console.log(adjExpirationTime, "adjExpirationTime line 18")
 
   const remainingDuration = adjExpirationTime - currentTime;
-
-  console.log(remainingDuration, 'remeainingDuration line 22');
 
   return remainingDuration;
 };
@@ -29,7 +26,6 @@ const retrieveStoredToken = () => {
   const storedExpirationDate = localStorage.getItem("expirationTime");
 
   const remainingTime = calculateRemainingTime(storedExpirationDate);
-  console.log(remainingTime, 'remainingTime Line 32')
 
   if (remainingTime <= 60000) {
     localStorage.removeItem("token");
@@ -42,16 +38,11 @@ const retrieveStoredToken = () => {
 export const AuthContextProvider = (props) => {
   const tokenData = retrieveStoredToken();
 
-  console.log(tokenData, 'tokenData');
-
   let initialToken = null;
 
   if (tokenData) {
-    console.log("should reach line 50")
     initialToken = tokenData.token;
   }
-
-  console.log(initialToken, 'initialToken Line 54')
 
   const initialDisplayName = localStorage.getItem("displayName");
   const initialLocalId = localStorage.getItem("locaId");
@@ -63,7 +54,6 @@ export const AuthContextProvider = (props) => {
   const userIsLoggedIn = !!token;
 
   const loginHandler = (userData, expirationTime) => {
-    console.log(expirationTime, 'experationTime line 66')
     setToken(userData.token);
     setDisplayName(userData.displayName);
     setLocalId(userData.localId);
@@ -97,7 +87,7 @@ export const AuthContextProvider = (props) => {
     if (tokenData) {
       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
     }
-  }, [tokenData, logoutHandler])
+  }, [tokenData, logoutHandler]);
 
   const contextValue = {
     token: token,
