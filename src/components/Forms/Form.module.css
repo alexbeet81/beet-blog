@@ -64,3 +64,12 @@
   color: #b40e0e;
   margin: 4px 0;
 }
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.formActions button {
+  margin-left: 1rem;
+}

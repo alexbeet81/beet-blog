@@ -29,6 +29,7 @@ const AddPost = (props) => {
         <AddPostForm
           onSubmit={addNewPostHandler}
           loading={status === "pending"}
+          onClose={props.onClose}
         />
       </div>
     </Modal>
