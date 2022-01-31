@@ -5,6 +5,7 @@ import useHttp from "../../hooks/use-http";
 import { useNavigate } from "react-router-dom";
 import { addPost } from "../../lib/api";
 import { useEffect } from "react/cjs/react.development";
+import Modal from "../../UI/Modal";
 
 const AddPost = (props) => {
   const navigate = useNavigate();
@@ -17,17 +18,20 @@ const AddPost = (props) => {
   useEffect(() => {
     if (status === "completed") {
       navigate("/");
+      props.onClose();
     }
   }, [status]);
 
   return (
-    <div className={classes.container}>
-      <h1 className={classes.title}>Add New Post</h1>
-      <AddPostForm
-        onSubmit={addNewPostHandler}
-        loading={status === "pending"}
-      />
-    </div>
+    <Modal>
+      <div className={classes.container}>
+        <h1 className={classes.title}>Add New Post</h1>
+        <AddPostForm
+          onSubmit={addNewPostHandler}
+          loading={status === "pending"}
+        />
+      </div>
+    </Modal>
   );
 };
 

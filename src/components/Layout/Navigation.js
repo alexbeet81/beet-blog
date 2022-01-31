@@ -5,6 +5,7 @@ import AuthContext from '../../store/auth-context';
 import Button from "../../UI/Button";
 import AuthForm from '../Auth/AuthForm';
 import classes from "./Navigation.module.css";
+import AddPost from '../Post/AddPost';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext)
@@ -12,6 +13,15 @@ const Navigation = () => {
   const isLoggedIn = authCtx.isLoggedIn;
 
   const [authFormOpen, setAuthFormOpen] = useState(false)
+  const [addPostOpen, setAddPostOpen] = useState(false)
+
+  const openNewPostHandler = () => {
+    setAddPostOpen(true);
+  }
+
+  const closeNewPostHander = () => {
+    setAddPostOpen(false);
+  };
 
   const openAuthFormHandler = () => {
     setAuthFormOpen(true);
@@ -28,8 +38,9 @@ const Navigation = () => {
   return (
     <Fragment>
       {authFormOpen && <AuthForm onClose={closeAuthFormHandler}/>}
+      {addPostOpen && <AddPost onClose={closeNewPostHander} />}
       <div className={classes.navigation}>
-        {isLoggedIn && <Link to="/new-post"><Button>new post</Button></Link>}
+        {isLoggedIn && <Button onClick={openNewPostHandler}>new post</Button>}
         {isLoggedIn && <Button onClick={logoutHandler}>logout</Button>}
         {!isLoggedIn && <Button onClick={openAuthFormHandler}>login</Button>}
       </div>
