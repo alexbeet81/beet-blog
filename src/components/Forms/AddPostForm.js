@@ -1,10 +1,10 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext } from "react";
 import validator from "validator";
 
 import classes from "./Form.module.css";
 import Button from "../../UI/Button";
 import useInput from "../../hooks/use-input";
-import AuthContext from '../../store/auth-context';
+import AuthContext from "../../store/auth-context";
 
 const AddPostForm = (props) => {
   const authCtx = useContext(AuthContext);
@@ -51,7 +51,7 @@ const AddPostForm = (props) => {
       content: contentRef.current.value,
       user: authCtx.displayName,
       userId: authCtx.localId,
-      date: Date.now()
+      date: Date.now(),
     };
 
     props.onSubmit(newPost);
@@ -124,8 +124,11 @@ const AddPostForm = (props) => {
           )}
         </div>
         <div className={classes.formActions}>
+          <Button onClick={props.onClose} cancel={true} type="button">
+            cancel
+          </Button>
           <Button disabled={!formIsValid} type="submit">
-            {props.loading ? 'sending...' : 'submit' }
+            {props.loading ? "sending..." : "submit"}
           </Button>
         </div>
       </div>
