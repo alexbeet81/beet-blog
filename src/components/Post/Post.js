@@ -26,7 +26,6 @@ const Post = () => {
   const {
     status: removePostStatus,
     sendRequest: removePostRequest,
-    error: removeError,
   } = useHttp(removePost);
 
   const { timeAgo } = useTime();
@@ -42,7 +41,7 @@ const Post = () => {
     if (removePostStatus === "completed") {
       navigate("/");
     }
-  }, [removePostStatus]);
+  }, [removePostStatus, navigate]);
 
   const openCancelModalHandler = () => {
     setModalOpen(true);
