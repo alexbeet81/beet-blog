@@ -109,5 +109,7 @@ export const login = async (userData) => {
     throw new Error(data.message || "Could not login");
   }
 
+  console.log(data);
+
   return data;
 };
