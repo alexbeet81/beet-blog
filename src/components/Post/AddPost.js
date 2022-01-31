@@ -1,10 +1,9 @@
 import AddPostForm from "../Forms/AddPostForm";
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./AddPost.module.css";
 import useHttp from "../../hooks/use-http";
 import { useNavigate } from "react-router-dom";
 import { addPost } from "../../lib/api";
-import { useEffect } from "react/cjs/react.development";
 import Modal from "../../UI/Modal";
 
 const AddPost = (props) => {
