@@ -17,7 +17,7 @@ const AddPost = (props) => {
 
   useEffect(() => {
     if (status === "completed") {
-      navigate(`/${postId}`);
+      navigate(`/post/${postId}`);
       props.onClose();
     }
   }, [status, navigate]);

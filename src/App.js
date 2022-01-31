@@ -6,6 +6,7 @@ import MainHeader from "./components/Layout/MainHeader";
 import Layout from "./components/Layout/Layout";
 import PostList from "./components/Post/PostList";
 import Post from "./components/Post/Post";
+import NotFound from "./components/Layout/NotFound";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <MainHeader />
         <Routes>
           <Route path="/" element={<PostList />} />
-          <Route path="/:postId" element={<Post />} />
+          <Route path="/post/:postId" element={<Post />} />
+          <Route path="*" element={<NotFound />}/>
         </Routes>
       </Layout>
     </Fragment>
