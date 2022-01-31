@@ -192,7 +192,7 @@ const AuthForm = (props) => {
             <div className={passwordClasses}>
               <label htmlFor="password">password</label>
               <input
-                type="text"
+                type="password"
                 id="password"
                 ref={passwordRef}
                 value={passwordValue}
