@@ -21,7 +21,7 @@
   padding: 0.5rem;
   border-radius: 4px;
   border: 1px solid #ccc;
-  width: 20rem;
+  width: 24rem;
   max-width: 100%;
 }
 
@@ -63,12 +63,4 @@
 .errorText {
   color: #b40e0e;
   margin: 4px 0;
-}
-
-.loginMessage {
-  margin: 1rem auto;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

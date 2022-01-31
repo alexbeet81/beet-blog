@@ -52,7 +52,9 @@ export const addPost = async (postData) => {
     throw new Error(data.message || "cannot create post");
   }
 
-  return null;
+  const postId = data.name
+
+  return postId;
 };
 
 export const removePost = async (postId) => {

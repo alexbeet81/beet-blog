@@ -6,7 +6,7 @@ import classes from "./MainHeader.module.css";
 import AuthContext from "../../store/auth-context";
 import Navigation from "./Navigation";
 
-const MainHeader = () => {
+const MainHeader = (props) => {
   const authCtx = useContext(AuthContext);
 
   let titleName = "Beet";
