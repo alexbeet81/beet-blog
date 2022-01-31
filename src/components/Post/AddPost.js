@@ -9,7 +9,7 @@ import Modal from "../../UI/Modal";
 
 const AddPost = (props) => {
   const navigate = useNavigate();
-  const { sendRequest, status } = useHttp(addPost);
+  const { sendRequest, status, data: postId } = useHttp(addPost);
 
   const addNewPostHandler = (data) => {
     sendRequest(data);
@@ -17,10 +17,10 @@ const AddPost = (props) => {
 
   useEffect(() => {
     if (status === "completed") {
-      navigate("/");
+      navigate(`/${postId}`);
       props.onClose();
     }
-  }, [status]);
+  }, [status, navigate]);
 
   return (
     <Modal>
