@@ -45,7 +45,7 @@ export const AuthContextProvider = (props) => {
   }
 
   const initialDisplayName = localStorage.getItem("displayName");
-  const initialLocalId = localStorage.getItem("locaId");
+  const initialLocalId = localStorage.getItem("localId");
 
   const [token, setToken] = useState(initialToken);
   const [displayName, setDisplayName] = useState(initialDisplayName);
