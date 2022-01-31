@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { Fragment } from "react/cjs/react.production.min";
-import React, { useState } from "react";
+import { Fragment } from "react";
+import React from "react";
 
 import MainHeader from "./components/Layout/MainHeader";
 import Layout from "./components/Layout/Layout";

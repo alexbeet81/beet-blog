@@ -12,7 +12,6 @@ const AuthContext = React.createContext({
 });
 
 const calculateRemainingTime = (expirationTime) => {
-  console.log(expirationTime, "expirationTime line 15");
   const currentTime = new Date().getTime();
   const adjExpirationTime = new Date(expirationTime).getTime();
 

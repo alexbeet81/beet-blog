@@ -12,7 +12,7 @@ import SmallLoadingSpinner from "../../UI/SmallLoadingSpinner";
 import AuthContext from "../../store/auth-context";
 
 const AuthForm = (props) => {
-  const nagivate = useNavigate();
+  const navigate = useNavigate();
 
   const authCtx = useContext(AuthContext);
 
@@ -24,14 +24,12 @@ const AuthForm = (props) => {
 
   const {
     status: signUpStatus,
-    error: signUpError,
     data: userSignUpData,
     sendRequest: sendSignUpResquest,
   } = useHttp(signUp);
 
   const {
     status: loginStatus,
-    error: loginError,
     data: userLoginData,
     sendRequest: sendloginResquest,
   } = useHttp(login);
@@ -68,7 +66,7 @@ const AuthForm = (props) => {
       );
 
       props.onClose();
-      nagivate("/");
+      navigate("/");
     }
 
     if (signUpStatus === "completed") {
@@ -85,9 +83,9 @@ const AuthForm = (props) => {
       );
 
       props.onClose();
-      nagivate("/");
+      navigate("/");
     }
-  }, [loginStatus, signUpStatus]);
+  }, [loginStatus, signUpStatus, authCtx, navigate, userLoginData, userSignUpData, props]);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);

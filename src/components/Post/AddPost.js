@@ -20,7 +20,7 @@ const AddPost = (props) => {
       navigate(`/post/${postId}`);
       props.onClose();
     }
-  }, [status, navigate]);
+  }, [status, navigate, postId, props]);
 
   return (
     <Modal onClose={props.onClose}>

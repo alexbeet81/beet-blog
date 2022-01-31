@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Fragment } from "react/cjs/react.production.min";
+import { Fragment } from "react";
 import classes from "./MainHeader.module.css";
 
 import AuthContext from "../../store/auth-context";
@@ -10,7 +10,6 @@ const MainHeader = (props) => {
   const authCtx = useContext(AuthContext);
 
   let titleName = "Beet";
-  console.log(authCtx.displayName, 'MainHeader line 13');
   if (authCtx.displayName !== null && authCtx.displayName !== "") {
     titleName = authCtx.displayName;
   }
