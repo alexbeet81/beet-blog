@@ -6,3 +6,10 @@
   width: 100%;
   padding: 0 10rem 0 10rem;
 }
+
+@media (max-width: 764px) {
+  .layout {
+    padding: 0 2rem 0 2rem;
+    width: 100vw;
+  }
+}

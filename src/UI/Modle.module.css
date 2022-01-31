@@ -21,10 +21,10 @@
   animation: slide-down 300ms ease-out forwards;
 }
 
-@media (min-width: 764px) {
+@media (max-width: 764px) {
   .modal {
-    width: auto;
-    left: cal(50% - 20rem)
+    left: 0.5rem;
+    right: 0.5rem;
   }
 }
 

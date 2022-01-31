@@ -17,3 +17,10 @@
   color: #fa696b;
   align-self: center;
 }
+
+@media (max-width: 764px) {
+  .mainHeader {
+    padding: 0 2rem 0 2rem;
+    width: 100vw;
+  }
+}

@@ -12,7 +12,7 @@ import AuthContext from "../../store/auth-context";
 
 const Post = () => {
   const authCtx = useContext(AuthContext);
-  
+
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -82,25 +82,29 @@ const Post = () => {
       } - ${timeAgo(loadedPost.date)}`}</p>
       <img src={loadedPost.image} alt={loadedPost.title} />
       <p className={classes.content}>{loadedPost.content}</p>
-      {showRemoveButton && <Button onClick={openCancelModalHandler}>Remove Post</Button>}
+      {showRemoveButton && (
+        <Button onClick={openCancelModalHandler}>Remove Post</Button>
+      )}
       {modalOpen && (
         <Modal onClose={closeCancelModalHandler}>
-          {removePostStatus === "pending" ? (
-            <div className="centered">
-              <LoadingSpinner />
-            </div>
-          ) : (
-            <div>
-              <h1>Think about it</h1>
-              <p>Are you sure you want to remove this post?</p>
-              <div className={classes.modalButtons}>
-                <Button onClick={closeCancelModalHandler} cancel={true}>
-                  cancel
-                </Button>
-                <Button onClick={removePostHandler}>Remove</Button>
+          <div className={classes.modal}>
+            {removePostStatus === "pending" ? (
+              <div className="centered">
+                <LoadingSpinner />
               </div>
-            </div>
-          )}
+            ) : (
+              <div className={classes.modalMessage}>
+                <h1>Are you sure?</h1>
+                <p>You will not be able to undo this action.</p>
+                <div className={classes.modalButtons}>
+                  <Button onClick={closeCancelModalHandler} cancel={true}>
+                    cancel
+                  </Button>
+                  <Button onClick={removePostHandler}>Remove</Button>
+                </div>
+              </div>
+            )}
+          </div>
         </Modal>
       )}
     </div>

@@ -1,4 +1,3 @@
-
 .formControl {
   margin-bottom: 1rem;
   /* display: flex; */
@@ -72,4 +71,25 @@
 
 .formActions button {
   margin-left: 1rem;
+}
+
+@media (max-width: 764px) {
+  .formControl {
+    width: 1rem;
+  }
+
+  .formControl input,
+  .formControl textarea,
+  .formControl select {
+    font: inherit;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    width: 19rem;
+    max-width: 100%;
+  }
+
+  .controlGroup .formControl {
+    width: 20rem;
+    flex: 1;
+  }
 }

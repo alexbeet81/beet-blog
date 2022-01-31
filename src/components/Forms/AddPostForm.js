@@ -89,7 +89,7 @@ const AddPostForm = (props) => {
           />
           {titleHasError && (
             <p className={classes.errorText}>
-              must be between 1 and 100 characters
+              must be between 1 and 50 characters
             </p>
           )}
         </div>
