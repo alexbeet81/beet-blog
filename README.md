@@ -1,17 +1,14 @@
+# Welcome to Beet Blog.
+
+## About
+
+I created this site while practicing React. My aims were to build a simple multi-page SPA with React Router; have persistent login; create forms with validation feedback and use a custom hook for api-calls.
+
+I learned a lot from making this site. But I don't think I'll be returning to it.
+
+## Tech:
+
+React, and deployed to firebase.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-## Project Brief
-
-This simple blog post site was created in order to practice content learned from the Udemy course 'React - The Complete Guide' by Maximillian Schwarzmuller. If you are interested in learning React I highly recommend this course.
